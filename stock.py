@@ -11,7 +11,6 @@ import yfinance as yf
 # The yfinance library is a Python library 
 # for accessing financial data from Yahoo Finance, including stock market data, financial news, and historical data.
 
-
 from prophet.plot import plot_plotly
 # The prophet is a library for time series forecasting in Python, which is built on top of pystan.
 
@@ -24,7 +23,6 @@ START = "2015-01-01"
 TODAY = date.today().strftime("%Y-%m-%d")
 # TODAY is assigned a value returned by the date.today().strftime("%Y-%m-%d") function.
 # This variable is used to specify the end date of a certain range or period of time.
-
 
 stock.title('Stock Prediction Application')
 # Title for the streamlit application
@@ -44,7 +42,6 @@ def load_data(ticker):
     return data
 # This function loads the historical data of a stock between a specified date range, and it uses caching to avoid loading the data again
 
-
 data_load_state = stock.text('Loading data...')
 data = load_data(selected_stock)
 data_load_state.text('Loading data... done!')
@@ -53,7 +50,6 @@ data_load_state.text('Loading data... done!')
 stock.subheader('Raw data')
 stock.write(data.tail())
 # Allows the user to see a sample of the loaded data.
-
 
 
 # Plot raw data
