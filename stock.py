@@ -74,15 +74,10 @@ future = make.make_future_dataframe(periods=period)
 forecast = make.predict(future)
 # This code creates an instance of the Prophet class and makes a prediction for the specified number of days using the model and assign the data to the variable.
 
-# Show and plot forecast
 stock.subheader('Prediction data')
 stock.write(forecast.tail())
 
 stock.write(f'Prediction plot for {years} years')
 fig1 = plot_plotly(make, forecast)
 stock.plotly_chart(fig1)
-
-stock.write("Prediction components")
-fig2 = make.plot_components(forecast)
-stock.write(fig2)
-# This code purpose is to display the stock prediction data.
+# This code purpose is to display the stock prediction data
