@@ -52,21 +52,21 @@ stock.subheader('Raw data')
 stock.write(data.t())
 
 def plot_raw_data():
-    fig = go.Figure()
-    fig.add_trace(go.Scatter(x=data['Date'], y=data['Open'], name="stock_open"))
-    fig.add_trace(go.Scatter(x=data['Date'], y=data['Close'], name="stock_close"))
-    fig.layout.update(title_text='Time Series data with Rangeslider', xaxis_rangeslider_visible=True)
-    stock.plotly_chart(fig)
+    pre = go.Figure()
+    pre.add_trace(go.Scatter(x=data['Date'], y=data['Open'], name="stock_open"))
+    pre.add_trace(go.Scatter(x=data['Date'], y=data['Close'], name="stock_close"))
+    pre.layout.update(title_text='Time Series data with Rangeslider', xaxis_rangeslider_visible=True)
+    stock.plotly_chart(pre)
 plot_raw_data()
 # This code defines a function that plots the raw data of the stock prices and display it on web page.
 
 # Predict forecast with Prophet.
-df_train = data[['Date', 'Close']]
-df_train = df_train.rename(columns={"Date": "ds", "Close": "y"})
+train = data[['Date', 'Close']]
+train = train.rename(columns={"Date": "ds", "Close": "y"})
 # This code creates a new DataFrame containing only specific columns and to make it compatible with the format required by the Prophet library.
 
 make = Prophet()
-make.fit(df_train)
+make.fit(train)
 future = make.make_future_dataframe(periods=period)
 forecast = make.predict(future)
 # This code creates an instance of the Prophet class and makes a prediction for the specified number of days using the model and assign the data to the variable.
@@ -76,10 +76,10 @@ stock.subheader('Prediction data')
 stock.write(forecast.t())
 
 stock.write(f'Prediction plot for {years} years')
-fig1 = plot_plotly(make, forecast)
-stock.plotly_chart(fig1)
+pre1 = plot_plotly(make, forecast)
+stock.plotly_chart(pre1)
 
 stock.write("Prediction components")
-fig2 = make.plot_components(forecast)
-stock.write(fig2)
+pre2 = make.plot_components(forecast)
+stock.write(pre2)
 # This code purpose is to display the stock prediction data.
