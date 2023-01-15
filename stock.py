@@ -31,8 +31,8 @@ stocks = ('GOOG', 'AAPL', 'MSFT', 'GME')
 selected_stock = stock.selectbox('Select dataset for prediction', stocks)
 #Allows the user to choose the stock provided from the list.
 
-n_years = stock.slider('Years of prediction:', 1, 4)
-period = n_years * 365
+years = stock.slider('Years of prediction:', 1, 4)
+period = years * 365
 # allows the user to select the number of years for which they would like to see the Stock Prediction.
 
 @stock.cache
@@ -44,22 +44,19 @@ def load_data(ticker):
 
 data_load_state = stock.text('Loading data...')
 data = load_data(selected_stock)
-data_load_state.text('Loading data... done!')
+data_load_state.text('done!')
 # This function only displays the loading message for the user.
 
 stock.subheader('Raw data')
-stock.write(data.tail())
 # Allows the user to see a sample of the loaded data.
+stock.write(data.t())
 
-
-# Plot raw data
 def plot_raw_data():
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=data['Date'], y=data['Open'], name="stock_open"))
     fig.add_trace(go.Scatter(x=data['Date'], y=data['Close'], name="stock_close"))
     fig.layout.update(title_text='Time Series data with Rangeslider', xaxis_rangeslider_visible=True)
     stock.plotly_chart(fig)
-
 plot_raw_data()
 # This code defines a function that plots the raw data of the stock prices and display it on web page.
 
@@ -76,9 +73,9 @@ forecast = make.predict(future)
 
 # Show and plot forecast
 stock.subheader('Prediction data')
-stock.write(forecast.tail())
+stock.write(forecast.t())
 
-stock.write(f'Prediction plot for {n_years} years')
+stock.write(f'Prediction plot for {years} years')
 fig1 = plot_plotly(make, forecast)
 stock.plotly_chart(fig1)
 
