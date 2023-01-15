@@ -44,42 +44,45 @@ def load_data(ticker):
 
 data_load_state = stock.text('Loading data...')
 data = load_data(selected_stock)
-data_load_state.text('done!')
+data_load_state.text('Loading data... done!')
 # This function only displays the loading message for the user.
 
 stock.subheader('Raw data')
+stock.write(data.tail())
 # Allows the user to see a sample of the loaded data.
-stock.write(data.t())
 
+
+# Plot raw data
 def plot_raw_data():
-    pre = go.Figure()
-    pre.add_trace(go.Scatter(x=data['Date'], y=data['Open'], name="stock_open"))
-    pre.add_trace(go.Scatter(x=data['Date'], y=data['Close'], name="stock_close"))
-    pre.layout.update(title_text='Time Series data with Rangeslider', xaxis_rangeslider_visible=True)
-    stock.plotly_chart(pre)
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=data['Date'], y=data['Open'], name="stock_open"))
+    fig.add_trace(go.Scatter(x=data['Date'], y=data['Close'], name="stock_close"))
+    fig.layout.update(title_text='Time Series data with Rangeslider', xaxis_rangeslider_visible=True)
+    stock.plotly_chart(fig)
+
 plot_raw_data()
 # This code defines a function that plots the raw data of the stock prices and display it on web page.
 
 # Predict forecast with Prophet.
-train = data[['Date', 'Close']]
-train = train.rename(columns={"Date": "ds", "Close": "y"})
+df_train = data[['Date', 'Close']]
+df_train = df_train.rename(columns={"Date": "ds", "Close": "y"})
 # This code creates a new DataFrame containing only specific columns and to make it compatible with the format required by the Prophet library.
 
 make = Prophet()
-make.fit(train)
+make.fit(df_train)
 future = make.make_future_dataframe(periods=period)
 forecast = make.predict(future)
 # This code creates an instance of the Prophet class and makes a prediction for the specified number of days using the model and assign the data to the variable.
 
 # Show and plot forecast
 stock.subheader('Prediction data')
-stock.write(forecast.t())
+stock.write(forecast.tail())
 
 stock.write(f'Prediction plot for {years} years')
-pre1 = plot_plotly(make, forecast)
-stock.plotly_chart(pre1)
+fig1 = plot_plotly(make, forecast)
+stock.plotly_chart(fig1)
 
 stock.write("Prediction components")
-pre2 = make.plot_components(forecast)
-stock.write(pre2)
+fig2 = make.plot_components(forecast)
+stock.write(fig2)
 # This code purpose is to display the stock prediction data.
