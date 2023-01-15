@@ -1,6 +1,7 @@
 from datetime import date
 # the datetime module provides classes for manipulating dates and times, while the date class is used to represent a specific date
 
+
 from prophet import Prophet
 # prophet acts as a main class of this code
 
