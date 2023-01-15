@@ -68,10 +68,10 @@ df_train = data[['Date', 'Close']]
 df_train = df_train.rename(columns={"Date": "ds", "Close": "y"})
 # This code creates a new DataFrame containing only specific columns and to make it compatible with the format required by the Prophet library.
 
-m = Prophet()
-m.fit(df_train)
-future = m.make_future_dataframe(periods=period)
-forecast = m.predict(future)
+make = Prophet()
+make.fit(df_train)
+future = make.make_future_dataframe(periods=period)
+forecast = make.predict(future)
 # This code creates an instance of the Prophet class and makes a prediction for the specified number of days using the model and assign the data to the variable.
 
 # Show and plot forecast
@@ -79,10 +79,10 @@ stock.subheader('Prediction data')
 stock.write(forecast.tail())
 
 stock.write(f'Prediction plot for {n_years} years')
-fig1 = plot_plotly(m, forecast)
+fig1 = plot_plotly(make, forecast)
 stock.plotly_chart(fig1)
 
 stock.write("Prediction components")
-fig2 = m.plot_components(forecast)
+fig2 = make.plot_components(forecast)
 stock.write(fig2)
 # This code purpose is to display the stock prediction data.
