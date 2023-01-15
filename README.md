@@ -8,7 +8,7 @@ This repository is made by Adyatama Mahabarata from class L1BC 2602158626
 - yfinance
 - plotly
 ```
-Install the files trought command prompt and using pip.
+Install the files trough command prompt and using pip.
 
 # Video link
 https://drive.google.com/file/d/18V2NUkSKFPq2_rOjZ6l2a_raZUelEX0M/view?usp=sharing
