@@ -1,9 +1,13 @@
 from datetime import date
 # the datetime module provides classes for manipulating dates and times, while the date class is used to represent a specific date
 
+from datet import Datet
+# this class is only used to get the web to get a more accurate date
 
 from prophet import Prophet
 # prophet acts as a main class of this code
+# The Prophet algorithm is a time-series forecasting method which uses Bayesian techniques to handle trend and seasonality in data, 
+# making it well-suited for stock price forecasting or any other time-series forecasting task.
 
 import streamlit as stock
 # streamlit acts as a web application
@@ -36,12 +40,13 @@ years = stock.slider('Years of prediction:', 1, 4)
 period = years * 365
 # allows the user to select the number of years for which they would like to see the Stock Prediction.
 
+
 @stock.cache
 def load_data(ticker):
     data = yf.download(ticker, START, TODAY)
     data.reset_index(inplace=True)
     return data
-# This function loads the historical data of a stock between a specified date range, and it uses caching to avoid loading the data again
+# This function loads the historical data of a stock between a specified date range, and it uses caching to avoid loading the data again.
 
 data_load_state = stock.text('Loading data...')
 data = load_data(selected_stock)
@@ -81,4 +86,4 @@ stock.write(forecast.tail())
 stock.write(f'Prediction plot for {years} years')
 fig1 = plot_plotly(make, forecast)
 stock.plotly_chart(fig1)
-# This code purpose is to display the stock prediction data
+# This code ONLY purpose is to display the stock prediction data
